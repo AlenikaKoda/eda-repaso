@@ -22,7 +22,7 @@ void ingresarPila(Pila& pila)
 	}
 }
 
-int main()
+void ejecricio1()
 {
 	Pila pila1 = NULL;
 	Pila pila2 = NULL;
@@ -47,6 +47,11 @@ int main()
 	cout << "Pila 3:\n";
 	mostrarP(pila3);
 	cout << "\n";
+}
+
+int main()
+{
+	ejecricio1();
 }
 
 // NOLINTEND
