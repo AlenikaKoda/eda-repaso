@@ -84,9 +84,15 @@ void ejercicio2()
 	mostrarP(pila);
 }
 
-int main()
+# Uso
+
+Ejecuta `make run` para ejecutar el programa.
+puedes cambiar el ejercicio a ejecutar modificando `main.cpp`
+
+int main(int argc, char* argv[])
 {
-	ejercicio2();
+  ejercicio1();
+  return 0;
 }
 
 // NOLINTEND
