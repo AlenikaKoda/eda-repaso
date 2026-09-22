@@ -94,4 +94,98 @@ void terceraPila(Pila& pil1, Pila& pil2, Pila& pil3)
 	}
 }
 
+Pila obtenerIesimo(Pila& p, int i)
+{
+	// Como la funcion devuelve un puntero (Pila), si no encontramos el valor
+	// o la pila esta vacia devolvemos NULL. 
+	// (Si devolviera un int, podriamos devolver -1, depende de la letra).
+
+	// Para poder movernos por la pila hay que ir desapilando.
+	// Para no perder los nodos que sacamos, los guardamos en un auxiliar.
+	
+	// NOTITA :3
+	// Aca habia que tener cuidado. Casi pongo un 'return' directo si la pila 
+	// quedaba vacia despues de buscar el elemento, pero la pila hubiera quedado desarmada.
+	// El tema es que tenemos que armarla de vuelta siempre (encuentre o no el elemento).
+	// Por eso, mas abajo evaluamos si NO quedo vacia para guardar el resultado, 
+	// y luego armamos todo de nuevo tranquilamente.
+
+	// BASICAMENTE (para i = 3, desapilamos 2 veces)
+	// 
+	// p: 10 20 30 40 50
+	// x: 
+	// 
+	// p: 20 30 40 50
+	// x: 10
+	//
+	// p: 30 40 50
+	// x: 20 10
+	// 
+	// resultado = 30 (cima de p)
+	// 
+	// p: 20 30 40 50
+	// x: 10
+	// 
+	// p: 10 20 30 40 50
+	// x:
+	// 
+	// retornar: 30 (como un nodo nuevo)
+
+	Pila auxPila = NULL;
+	Pila resultado = NULL;
+
+	// En nuestro caso el indice buscado comienza en 1 (la cima es el elemento 1).
+	// Si nos piden un indice invalido (<= 0) o la pila ya viene vacia, 
+	// ni nos gastamos y devolvemos NULL directo.
+	if (i <= 0 || !p)
+	{
+		return NULL;
+	}
+
+	// Usaremos un contador empezando en 0 para saber cuantas veces vamos desapilando.
+	int contador = 0; 
+
+	// Como funciona la condicion del contador y el indice?
+	// La intencion es que al terminar el bucle, el elemento buscado quede en la cima.
+	// Para llegar al elemento 'i', debemos quitar los que estan arriba de el.
+	// Es decir, necesitamos desapilar exactamente (i - 1) elementos.
+	//
+	// Ejemplo 1: queremos la cima (i = 1).
+	// Tenemos que desapilar (1 - 1) = 0 veces. 
+	// Como el contador arranca en 0, la condicion "0 < 0" da FALSO y no desapila nada. ¡Perfecto!
+	//
+	// Ejemplo 2: queremos el 3er elemento (i = 3).
+	// Tenemos que desapilar (3 - 1) = 2 veces.
+	// El bucle corre con contador=0 y luego contador=1. Al llegar a 2, "2 < 2" da FALSO y frena.
+	while (p && contador < (i - 1))
+	{
+		// desapilamos p en auxPila para no perder el nodo
+		apilar(auxPila, desapilar(p));
+
+		// indicamos que ya hemos desapilado un nodo sumando 1 al contador
+		contador++;
+	}
+
+	// Ahora la pila tiene el resultado en la cima O quedo vacia (si i > longitud de la pila)
+	resultado = NULL;
+
+	// Si la pila no quedo vacia, entonces la cima contiene el resultado buscado
+	if (p)
+	{
+		// Resulta que no debemos compartir memoria ni devolver el nodo original
+		// para no romper la estructura externa, asi que guardamos una copia de la cima.
+		resultado = crearNodo(cima(p)->valor);
+	}
+
+	// Ahora tenemos que re-armar la pila original.
+	// Recuperamos los nodos que habiamos guardado en el auxiliar
+	while (auxPila)
+	{
+		apilar(p, desapilar(auxPila));
+	}
+
+	// devolvemos la copia del nodo resultado (o NULL si no se encontro)
+	return resultado;
+}
+
 // NOLINTEND

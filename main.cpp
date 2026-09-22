@@ -22,7 +22,7 @@ void ingresarPila(Pila& pila)
 	}
 }
 
-void ejecricio1()
+void ejercicio1()
 {
 	Pila pila1 = NULL;
 	Pila pila2 = NULL;
@@ -49,9 +49,44 @@ void ejecricio1()
 	cout << "\n";
 }
 
+void ejercicio2()
+{
+	Pila pila = NULL;
+	int i = 0;
+
+	cout << "Ingresar pila:\n";
+	ingresarPila(pila);
+
+	cout << "Pila:\n";
+	mostrarP(pila);
+
+
+	cout << "Estoy vago para hacer un menu, para apagar el programa usa CTRL + C (jijij)\n";
+	while (true)
+	{
+		cout << "\nIngrese i: ";
+		cin >> i;
+
+		Pila elemento = obtenerIesimo(pila, i);
+		// tener en cuenta que elemento puede ser NULL
+		if(!elemento)
+		{
+			cout << "No existe el elemento " << i << '\n';
+		}
+		else
+		{
+			cout << "Elemento " << i << ": " << elemento->valor << '\n';
+		}
+	}
+
+	// para ver si no se rompio, uyuyu
+	cout << "Pila:\n";
+	mostrarP(pila);
+}
+
 int main()
 {
-	ejecricio1();
+	ejercicio2();
 }
 
 // NOLINTEND
