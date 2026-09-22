@@ -34,9 +34,6 @@ void terceraPila(Pila& pil1, Pila& pil2, Pila& pil3)
 	// [en este caso] consideramos que la cima contiene el
 	// MENOR.
 
-
-
-
 	Pila aux = NULL; // el auxiliar, contiene el resultado invertido
 
 	// 1)
